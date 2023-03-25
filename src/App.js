@@ -29,7 +29,12 @@ class App extends React.Component {
   }
 
   deleteItem = async (id) => {
-    await axios.delete(`${process.env.REACT_APP_SERVER}/items`, id);
+    let response = await axios.delete(`${process.env.REACT_APP_SERVER}/items/${id}`);
+    console.log(response);
+    let updatedItems = this.state.items.filter(item => item._id !== id);
+    this.setState({
+      items: updatedItems
+    });
   }
 
   componentDidMount() {
@@ -53,6 +58,7 @@ class App extends React.Component {
             <Col>
               <Items  itemsList={this.state.items} 
                       getitems={this.getItems}
+                      deleteItem={this.deleteItem}
               />
             </Col>
           </Row>

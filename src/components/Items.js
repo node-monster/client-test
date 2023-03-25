@@ -3,8 +3,6 @@ import { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 
-import axios from 'axios';
-
 class Items extends Component {
 
   render() {
@@ -26,6 +24,7 @@ class Items extends Component {
               this.props.itemsList.map((item, _id) =>
                 <Item key={_id} itemData={item}
                   getItems={this.props.getItems}
+                  deleteItem={this.props.deleteItem}
                 />
               )
             }
@@ -44,11 +43,7 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.getItems = this.props.getItems;
-  }
-
-
-  deleteItem = async (id) => {
-      await axios.delete(`${process.env.REACT_APP_SERVER}/items/${id}`);
+    this.deleteItem = this.props.deleteItem;
   }
 
   render() {
